@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.darcstarsolutions.finance.cramer</groupId>
+	<artifactId>cramer-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Cramer-Parent</name>
+	<description>Parent Module for the Cramer Project</description>
+	<licenses>
+		<license>
+			<name>Apache License 2.0</name>
+			<url>http://www.spdx.org/licenses/Apache-2.0</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			Michael Harris(MHarris021)
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/MHarris021/Cramer</url>
+		<connection>https://github.com/MHarris021/Cramer.git</connection>
+		<developerConnection>Michael Harris</developerConnection>
+	</scm>
+	<organization>
+		<name>DarcStar Solutions</name>
+		<url>www.darcstarsolutions.com</url>
+	</organization>
+	<modules>
+		<module>cramer-events</module>
+		<module>cramer-core</module>
+		<module>cramer-rules</module>
+		<module>cramer-learning</module>
+		<module>cramer-planning</module>
+		<module>cramer-markets</module>
+		<module>cramer-integration</module>
+		<module>cramer-data</module>
+	</modules>
+	<inceptionYear>02/06/2014</inceptionYear>
+	<url>www.darcstarsolutions.com</url>
+</project>
