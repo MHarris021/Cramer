@@ -8,4 +8,12 @@
   <artifactId>cramer-planning</artifactId>
   <name>Cramer Planning</name>
   <description>AI Planning Module for the Cramer Project</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.optaplanner</groupId>
+  		<artifactId>optaplanner</artifactId>
+  		<version>6.0.1.Final</version>
+  		<type>pom</type>
+  	</dependency>
+  </dependencies>
 </project>
