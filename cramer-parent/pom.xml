@@ -5,7 +5,7 @@
 	<artifactId>cramer-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Cramer-Parent</name>
+	<name>Cramer Parent</name>
 	<description>Parent Module for the Cramer Project</description>
 	<licenses>
 		<license>
