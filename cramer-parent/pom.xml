@@ -15,7 +15,9 @@
 	</licenses>
 	<developers>
 		<developer>
-			Michael Harris(MHarris021)
+			<name>Michael Harris (MHarris021)</name>
+			<id>Owner</id>
+			<email>mharris021@hotmail.com</email>
 		</developer>
 	</developers>
 	<scm>
