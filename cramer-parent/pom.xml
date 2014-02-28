@@ -21,9 +21,9 @@
 		</developer>
 	</developers>
 	<scm>
-		<url>https://github.com/MHarris021/Cramer</url>
-		<connection>https://github.com/MHarris021/Cramer.git</connection>
-		<developerConnection>Michael Harris</developerConnection>
+		<url>git@github.com:MHarris021:Cramer.git</url>
+		<connection>scm:git:git@github.com:MHarris021/Cramer.git</connection>
+		<developerConnection>git@github.com:MHarris021:Cramer.git</developerConnection>
 	</scm>
 	<organization>
 		<name>DarcStar Solutions</name>
@@ -41,4 +41,9 @@
 	</modules>
 	<inceptionYear>02/06/2014</inceptionYear>
 	<url>www.darcstarsolutions.com</url>
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 </project>
