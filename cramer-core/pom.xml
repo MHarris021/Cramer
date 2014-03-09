@@ -35,4 +35,11 @@
 			</testResource>
 		</testResources>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>4.0.2.RELEASE</version>
+		</dependency>
+	</dependencies>
 </project>
