@@ -24,14 +24,27 @@ public class Tick implements Serializable, Comparable<Tick> {
 
 	private BigDecimal assetPrice;
 
+	private BigDecimal assetQuantity;
+
+	public Tick(BigInteger marketId, Instant timestamp, Asset asset) {
+		this(marketId, timestamp, asset.getId(), asset.getPrice(), asset
+				.getQuantity());
+	}
+
 	public Tick(BigInteger marketId, Instant timestamp, BigInteger assetId,
 			BigDecimal assetPrice) {
+		this(marketId, timestamp, assetId, assetPrice, BigDecimal.ONE);
+	}
+
+	public Tick(BigInteger marketId, Instant timestamp, BigInteger assetId,
+			BigDecimal assetPrice, BigDecimal assetQuantity) {
 		super();
 		this.id = UUID.randomUUID();
 		this.timestamp = timestamp;
 		this.marketId = marketId;
 		this.assetId = assetId;
 		this.assetPrice = assetPrice;
+		this.assetQuantity = assetQuantity;
 	}
 
 	public UUID getId() {
@@ -54,6 +67,29 @@ public class Tick implements Serializable, Comparable<Tick> {
 		return assetPrice;
 	}
 
+	public BigDecimal getAssetQuantity() {
+		return assetQuantity;
+	}
+
+	public boolean isAfter(Tick tick) {
+		Instant myInstant = this.getTimestamp();
+		Instant otherInstant = tick.getTimestamp();
+		return myInstant.isAfter(otherInstant);
+	}
+
+	public boolean isBefore(Tick tick) {
+		Instant myInstant = this.getTimestamp();
+		Instant otherInstant = tick.getTimestamp();
+		return myInstant.isBefore(otherInstant);
+	}
+
+	public BigDecimal getAssetValue() {
+		BigDecimal price = this.getAssetPrice();
+		BigDecimal quantity = this.getAssetQuantity();
+		BigDecimal value = price.multiply(quantity);
+		return value;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,6 +97,8 @@ public class Tick implements Serializable, Comparable<Tick> {
 		result = prime * result + ((assetId == null) ? 0 : assetId.hashCode());
 		result = prime * result
 				+ ((assetPrice == null) ? 0 : assetPrice.hashCode());
+		result = prime * result
+				+ ((assetQuantity == null) ? 0 : assetQuantity.hashCode());
 		result = prime * result
 				+ ((marketId == null) ? 0 : marketId.hashCode());
 		result = prime * result
@@ -94,6 +132,13 @@ public class Tick implements Serializable, Comparable<Tick> {
 		} else if (!assetPrice.equals(other.assetPrice)) {
 			return false;
 		}
+		if (assetQuantity == null) {
+			if (other.assetQuantity != null) {
+				return false;
+			}
+		} else if (!assetQuantity.equals(other.assetQuantity)) {
+			return false;
+		}
 		if (marketId == null) {
 			if (other.marketId != null) {
 				return false;
@@ -114,9 +159,9 @@ public class Tick implements Serializable, Comparable<Tick> {
 	@Override
 	public int compareTo(Tick o) {
 		int result = 0;
-		BigDecimal myPrice = getAssetPrice();
-		BigDecimal otherPrice = o.getAssetPrice();
-		result = myPrice.compareTo(otherPrice);
+		Instant myInstant = this.getTimestamp();
+		Instant otherInstant = o.getTimestamp();
+		result = myInstant.compareTo(otherInstant);
 		return result;
 	}
 
@@ -124,7 +169,8 @@ public class Tick implements Serializable, Comparable<Tick> {
 	public String toString() {
 		return "Tick [id=" + id + ", timestamp=" + timestamp + ", marketId="
 				+ marketId + ", assetId=" + assetId + ", assetPrice="
-				+ assetPrice + "]";
+				+ assetPrice + ", assetQuantity=" + assetQuantity
+				+ ", assetValue=" + getAssetValue() + "]";
 	}
 
 }
