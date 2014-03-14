@@ -4,61 +4,72 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.joda.money.BigMoney;
-import org.joda.money.CurrencyMismatchException;
-
-public abstract class Asset implements Serializable, Comparable<Asset> {
+public class Asset implements Serializable, Comparable<Asset> {
 
 	private static final long serialVersionUID = 1L;
 
 	private BigInteger id;
-	private BigMoney value;
-	private String name;
-	private String description;
+	private Identifier identifier;
+	private BigDecimal price;
+	private BigDecimal quantity;
+
+	public Asset(Identifier identifier, BigDecimal price,
+			BigDecimal quantity) {
+		this.identifier = identifier;
+		this.price = price;
+		this.quantity = quantity;
+	}
 
 	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	protected void setId(BigInteger id) {
 		this.id = id;
 	}
 
-	public BigMoney getValue() {
-		return value;
-	}
-
-	public void setValue(BigMoney value) {
-		this.value = value;
+	public Identifier getIdentifier() {
+		return this.identifier;
 	}
 
 	public String getName() {
-		return name;
+		return getIdentifier().getName();
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public BigDecimal getPrice() {
+		return this.price;
 	}
 
-	public String getDescription() {
-		return description;
+	public BigDecimal getQuantity() {
+		return this.quantity;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public BigDecimal getValue() {
+		BigDecimal value = price.multiply(quantity);
+		return value;
 	}
-	
-	
+
+	/***
+	 * Natural Order Comparison based on price of asset and not value;
+	 */
+	@Override
+	public int compareTo(Asset o) {
+		int result = 0;
+		BigDecimal myPrice = getPrice();
+		BigDecimal otherPrice = o.getPrice();
+		result = myPrice.compareTo(otherPrice);
+		return result;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
+				+ ((identifier == null) ? 0 : identifier.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result
+				+ ((quantity == null) ? 0 : quantity.hashCode());
 		return result;
 	}
 
@@ -74,60 +85,35 @@ public abstract class Asset implements Serializable, Comparable<Asset> {
 			return false;
 		}
 		Asset other = (Asset) obj;
-		if (description == null) {
-			if (other.description != null) {
+		if (identifier == null) {
+			if (other.identifier != null) {
 				return false;
 			}
-		} else if (!description.equals(other.description)) {
+		} else if (!identifier.equals(other.identifier)) {
 			return false;
 		}
-		if (id == null) {
-			if (other.id != null) {
+		if (price == null) {
+			if (other.price != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!price.equals(other.price)) {
 			return false;
 		}
-		if (name == null) {
-			if (other.name != null) {
+		if (quantity == null) {
+			if (other.quantity != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (value == null) {
-			if (other.value != null) {
-				return false;
-			}
-		} else if (!value.equals(other.value)) {
+		} else if (!quantity.equals(other.quantity)) {
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public int compareTo(Asset o) {
-		int result = 0;
-		if (!this.getId().equals(o.getId())) {
-			BigMoney myValue = getValue();
-			BigMoney otherValue = o.getValue();
-			if (myValue.isSameCurrency(otherValue)) {
-				result = myValue.compareTo(otherValue);
-			} else {
-				throw new CurrencyMismatchException(myValue.getCurrencyUnit(),
-						otherValue.getCurrencyUnit());
-			}
-		}
-		return result;
+	public String toString() {
+		return "Asset [id=" + id + ", identifier="
+				+ identifier + ", price=" + price + ", quantity=" + quantity
+				+ ", value=" + getValue() + "]";
 	}
 
-	public BigDecimal getPrice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public BigDecimal getQuantity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
